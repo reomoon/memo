@@ -389,6 +389,26 @@ body {
     background-color: #117a8b;
 }
 
+/* 잠금 토글 버튼 스타일 (보라색) */
+.lock-toggle-btn {
+    background-color: #a29bfe;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.lock-toggle-btn:hover {
+    background-color: #9c8cdb;
+}
+
+.lock-toggle-btn:active {
+    background-color: #8b7db8;
+}
+
 /* 삭제 버튼 스타일 (빨간색) */
 .delete-btn {
     background-color: #ff4757;

@@ -367,16 +367,17 @@ class MemoUI {
                 <!-- 메모 본문과 복사 버튼 -->
                 <div class="memo-content-wrapper">
                     ${memo.password ? 
-                        `<div class="memo-body memo-locked" data-id="${memo.id}">🔒 잠금 메모</div>` :
+                        `<div class="memo-body memo-locked" data-id="${memo.id}" title="클릭하여 비밀번호로 열기">🔒 잠금 메모<br><small style="font-size: 11px; opacity: 0.7;">클릭하여 열기</small></div>` :
                         `<div class="memo-body">${this.escapeHtml(memo.body)}</div>`
                     }
                     <button class="copy-btn" title="복사하기" data-id="${memo.id}" ${memo.password ? 'style="display:none;"' : ''}>📋</button>
                 </div>
                 <!-- 저장된 날짜/시간 -->
                 <div class="memo-date">${memo.createdAt}</div>
-                <!-- 편집, 삭제 버튼 -->
+                <!-- 편집, 잠금 토글, 삭제 버튼 -->
                 <div class="memo-footer">
                     <button class="edit-btn" data-id="${memo.id}">편집</button>
+                    <button class="lock-toggle-btn" data-id="${memo.id}" title="${memo.password ? '비밀번호 제거' : '비밀번호 설정'}">${memo.password ? '🔒 잠금해제' : '🔓 잠금'}</button>
                     <button class="delete-btn" data-id="${memo.id}">삭제</button>
                 </div>
             </div>
@@ -417,6 +418,14 @@ class MemoUI {
             btn.addEventListener('click', () => {
                 const id = parseInt(btn.dataset.id);
                 this.handleDelete(id);  // 삭제 처리
+            });
+        });
+
+        // 잠금/해제 토글 버튼 이벤트 설정
+        this.memoList.querySelectorAll('.lock-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = parseInt(btn.dataset.id);
+                this.toggleMemoLock(id);  // 잠금/해제 토글
             });
         });
     }
@@ -647,6 +656,41 @@ class MemoUI {
             }
         } else {
             alert('비밀번호가 틀렸습니다.');
+        }
+    }
+
+    // 메모 잠금/해제 토글
+    toggleMemoLock(id) {
+        const memo = this.manager.memos.find(m => m.id === id);
+        if (!memo) return;
+
+        if (memo.password) {
+            // 잠금 해제: 비밀번호 확인 후 제거
+            const password = prompt('현재 비밀번호를 입력하세요:');
+            if (password === null) return;
+
+            if (this.manager.verifyPassword(memo.password, password)) {
+                memo.password = null;  // 비밀번호 제거
+                this.manager.saveMemos();
+                this.showToast('잠금이 해제되었습니다.');
+                this.render();
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+            }
+        } else {
+            // 잠금 설정: 새 비밀번호 설정
+            const password = prompt('4자리 비밀번호를 입력하세요:');
+            if (password === null) return;
+
+            if (password.length !== 4 || !/^\d{4}$/.test(password)) {
+                alert('4자리 숫자만 입력 가능합니다.');
+                return;
+            }
+
+            memo.password = this.manager.hashPassword(password);
+            this.manager.saveMemos();
+            this.showToast('메모가 잠금되었습니다.');
+            this.render();
         }
     }
 }
