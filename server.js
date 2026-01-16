@@ -9,14 +9,11 @@ app.use(express.json());
 // 세션 저장소 (간단한 메모리 저장소)
 const sessions = new Map();
 
-// 정적 파일 제공
-app.use(express.static('.'));
-
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 const GITHUB_API_URL = 'https://api.github.com';
 
 // ================================================
-// GitHub OAuth API
+// GitHub OAuth API (정적 파일 제공 BEFORE)
 // ================================================
 
 // GitHub 로그인 리다이렉트
@@ -228,6 +225,11 @@ ${text}`
         res.status(500).json({ error: '카테고리 분류 실패' });
     }
 });
+
+// ================================================
+// 정적 파일 제공 (API 라우트 다음에)
+// ================================================
+app.use(express.static('.'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
