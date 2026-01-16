@@ -729,5 +729,38 @@ class App {
 let app = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    app = new App();  // 전역 app 객체 생성 (HTML에서 onclick으로 사용)
+    // GitHub OAuth 로그인 기능은 나중에 추가
+    // 현재는 바로 메모 앱 실행
+    
+    // AuthManager 제외하고 실행
+    const manager = new MemoManager();
+    const ui = new MemoUI(manager);
+    
+    window.app = {
+        manager: manager,
+        ui: ui,
+        filterByCategory: function(category) {
+            this.manager.selectedCategory = category;
+            this.manager.currentPage = 1;
+            this.ui.render();
+        },
+        goToPage: function(page) {
+            this.manager.currentPage = page;
+            this.ui.render();
+            window.scrollTo(0, 0);
+        },
+        nextPage: function() {
+            if (this.manager.currentPage < this.manager.getTotalPages()) {
+                this.goToPage(this.manager.currentPage + 1);
+            }
+        },
+        previousPage: function() {
+            if (this.manager.currentPage > 1) {
+                this.goToPage(this.manager.currentPage - 1);
+            }
+        }
+    };
+    
+    // 초기 렌더링
+    ui.render();
 });
