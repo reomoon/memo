@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메모</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 메모</h1>
+        </div>
+
+        <div class="memo-list" id="memoList"></div>
+
+        <div class="pagination" id="pagination"></div>
+
+        <button class="add-memo-btn" id="addMemoBtn">+ 메모 추가</button>
+    </div>
+
+    <!-- 메모 추가/수정 모달 -->
+    <div class="modal" id="memoModal">
+        <div class="modal-content">
+            <div class="modal-header" id="modalTitle">새 메모</div>
+            <form class="modal-form" id="memoForm">
+                <div class="form-group">
+                    <label>제목</label>
+                    <input type="text" id="memoTitle" placeholder="메모 제목을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="url" id="memoUrl" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label>본문</label>
+                    <textarea id="memoBody" placeholder="메모 내용을 입력하세요" required></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-btn" id="cancelBtn">취소</button>
+                    <button type="submit" class="save-btn">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
