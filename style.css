@@ -1,20 +1,32 @@
+/* ============================================
+   전체 기본 스타일 설정
+   ============================================ */
+
+/* 모든 요소에서 기본 여백 제거 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 페이지 전체 배경색과 글꼴 설정 */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
     background-color: #f5f5f5;
     padding: 10px;
 }
 
+/* ============================================
+   레이아웃 및 컨테이너
+   ============================================ */
+
+/* 콘텐츠를 중앙 정렬하고 최대 너비 설정 */
 .container {
     max-width: 600px;
     margin: 0 auto;
 }
 
+/* 헤더 스타일 */
 .header {
     text-align: center;
     padding: 20px 0;
@@ -26,6 +38,11 @@ body {
     color: #333;
 }
 
+/* ============================================
+   메모 목록 및 아이템 스타일
+   ============================================ */
+
+/* 메모 목록을 스크롤 가능하게 설정 (최대 10개씩 보이고 스크롤) */
 .memo-list {
     display: flex;
     flex-direction: column;
@@ -36,6 +53,7 @@ body {
     margin-bottom: 20px;
 }
 
+/* 개별 메모 카드 스타일 */
 .memo-item {
     background: white;
     border-radius: 8px;
@@ -46,6 +64,7 @@ body {
     gap: 10px;
 }
 
+/* 메모 제목 스타일 */
 .memo-title {
     font-size: 16px;
     font-weight: 600;
@@ -53,16 +72,31 @@ body {
     word-break: break-word;
 }
 
+/* 메모 URL 스타일 (링크로 표시) */
 .memo-url {
     font-size: 12px;
-    color: #666;
+    color: #0066cc;
     word-break: break-all;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
+.memo-url:hover {
+    color: #0052a3;
+    text-decoration: underline;
+}
+
+/* ============================================
+   메모 본문 및 복사 버튼
+   ============================================ */
+
+/* 메모 본문을 감싸는 컨테이너 (복사 버튼 위치 설정용) */
 .memo-content-wrapper {
     position: relative;
 }
 
+/* 메모 본문 스타일 */
 .memo-body {
     font-size: 14px;
     color: #555;
@@ -76,6 +110,7 @@ body {
     padding-right: 40px;
 }
 
+/* 본문 복사 버튼 스타일 */
 .copy-btn {
     position: absolute;
     top: 8px;
@@ -93,6 +128,11 @@ body {
     color: #333;
 }
 
+/* ============================================
+   메모 하단 버튼들 (편집, 삭제)
+   ============================================ */
+
+/* 편집/삭제 버튼을 오른쪽 정렬 */
 .memo-footer {
     display: flex;
     justify-content: flex-end;
@@ -100,6 +140,7 @@ body {
     padding-top: 5px;
 }
 
+/* 편집 버튼 스타일 (파란색) */
 .edit-btn {
     background-color: #17a2b8;
     color: white;
@@ -119,6 +160,7 @@ body {
     background-color: #117a8b;
 }
 
+/* 삭제 버튼 스타일 (빨간색) */
 .delete-btn {
     background-color: #ff4757;
     color: white;
@@ -138,6 +180,11 @@ body {
     background-color: #ff2e2e;
 }
 
+/* ============================================
+   페이지네이션 (페이지 번호 표시)
+   ============================================ */
+
+/* 페이지 번호 버튼들을 중앙 정렬 */
 .pagination {
     display: flex;
     justify-content: center;
@@ -146,6 +193,7 @@ body {
     flex-wrap: wrap;
 }
 
+/* 페이지네이션 버튼 기본 스타일 */
 .pagination button {
     padding: 6px 10px;
     border: 1px solid #ddd;
@@ -156,23 +204,31 @@ body {
     transition: all 0.2s;
 }
 
+/* 페이지네이션 버튼 호버 상태 */
 .pagination button:hover:not(:disabled) {
     background-color: #007bff;
     color: white;
     border-color: #007bff;
 }
 
+/* 현재 페이지 번호 하이라이트 */
 .pagination button.active {
     background-color: #007bff;
     color: white;
     border-color: #007bff;
 }
 
+/* 비활성화된 버튼 (첫 페이지에서 이전, 마지막 페이지에서 다음) */
 .pagination button:disabled {
     cursor: not-allowed;
     opacity: 0.5;
 }
 
+/* ============================================
+   빈 상태 메시지
+   ============================================ */
+
+/* 메모가 없을 때 표시할 메시지 */
 .empty-message {
     text-align: center;
     padding: 40px 20px;
@@ -180,6 +236,11 @@ body {
     font-size: 14px;
 }
 
+/* ============================================
+   메모 추가 버튼
+   ============================================ */
+
+/* 메모 추가 버튼 스타일 */
 .add-memo-btn {
     width: 100%;
     padding: 12px;
@@ -189,7 +250,7 @@ body {
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-bottom: 20px;
     transition: background-color 0.2s;
 }
 
@@ -197,6 +258,11 @@ body {
     background-color: #0056b3;
 }
 
+/* ============================================
+   모달 (팝업 창)
+   ============================================ */
+
+/* 모달 배경 (반투명 검은색) */
 .modal {
     display: none;
     position: fixed;
@@ -209,12 +275,14 @@ body {
     animation: fadeIn 0.2s;
 }
 
+/* 모달이 열려있을 때 표시 */
 .modal.show {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* 페이드인 애니메이션 */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -224,6 +292,7 @@ body {
     }
 }
 
+/* 모달 콘텐츠 박스 스타일 */
 .modal-content {
     background-color: white;
     padding: 20px;
@@ -234,6 +303,7 @@ body {
     animation: slideUp 0.3s;
 }
 
+/* 모달 슬라이드업 애니메이션 */
 @keyframes slideUp {
     from {
         transform: translateY(30px);
@@ -245,6 +315,7 @@ body {
     }
 }
 
+/* 모달 제목 스타일 */
 .modal-header {
     font-size: 18px;
     font-weight: 600;
@@ -252,24 +323,32 @@ body {
     color: #333;
 }
 
+/* ============================================
+   모달 폼 스타일
+   ============================================ */
+
+/* 폼 전체 스타일 (세로 배열) */
 .modal-form {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
+/* 폼의 각 입력 그룹 */
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
+/* 폼 라벨 스타일 */
 .form-group label {
     font-size: 12px;
     font-weight: 600;
     color: #666;
 }
 
+/* 입력 필드 스타일 (텍스트, URL) */
 .form-group input,
 .form-group textarea {
     padding: 8px;
@@ -279,17 +358,24 @@ body {
     font-size: 14px;
 }
 
+/* 텍스트 영역 (본문 입력) 스타일 - 높이를 두배로 설정 */
 .form-group textarea {
-    min-height: 100px;
+    min-height: 200px;
     resize: vertical;
 }
 
+/* ============================================
+   모달 버튼들 (취소, 저장)
+   ============================================ */
+
+/* 모달 버튼들을 가로로 배열 */
 .modal-buttons {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
+/* 모달 버튼 기본 스타일 */
 .modal-buttons button {
     flex: 1;
     padding: 10px;
@@ -301,6 +387,7 @@ body {
     transition: background-color 0.2s;
 }
 
+/* 취소 버튼 스타일 (회색) */
 .cancel-btn {
     background-color: #e9ecef;
     color: #333;
@@ -310,6 +397,7 @@ body {
     background-color: #dee2e6;
 }
 
+/* 저장 버튼 스타일 (파란색) */
 .save-btn {
     background-color: #007bff;
     color: white;
@@ -319,6 +407,11 @@ body {
     background-color: #0056b3;
 }
 
+/* ============================================
+   토스트 메시지 (알림)
+   ============================================ */
+
+/* 저장/삭제 완료 시 표시되는 알림 메시지 */
 .toast {
     position: fixed;
     bottom: 20px;
@@ -333,6 +426,7 @@ body {
     animation: slideInUp 0.3s;
 }
 
+/* 토스트 슬라이드업 애니메이션 */
 @keyframes slideInUp {
     from {
         transform: translate(-50%, 20px);

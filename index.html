@@ -1,41 +1,56 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 문서 인코딩 설정 -->
     <meta charset="UTF-8">
+    <!-- 모바일 반응형 설정 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 페이지 제목 -->
     <title>메모</title>
+    <!-- 외부 CSS 파일 연결 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 메인 컨테이너 -->
     <div class="container">
+        <!-- 헤더 섹션 -->
         <div class="header">
             <h1>📝 메모</h1>
         </div>
 
+        <!-- 메모 추가 버튼 (맨 위에 배치) -->
+        <button class="add-memo-btn" id="addMemoBtn">+ 메모 추가</button>
+
+        <!-- 메모 목록을 표시할 영역 (JavaScript로 동적 생성) -->
         <div class="memo-list" id="memoList"></div>
 
+        <!-- 페이지네이션 버튼을 표시할 영역 (JavaScript로 동적 생성) -->
         <div class="pagination" id="pagination"></div>
-
-        <button class="add-memo-btn" id="addMemoBtn">+ 메모 추가</button>
     </div>
 
-    <!-- 메모 추가/수정 모달 -->
+    <!-- 메모 추가/수정 모달 (팝업 창) -->
     <div class="modal" id="memoModal">
         <div class="modal-content">
+            <!-- 모달 제목 (새 메모 / 메모 수정) -->
             <div class="modal-header" id="modalTitle">새 메모</div>
+            <!-- 메모 입력 폼 -->
             <form class="modal-form" id="memoForm">
+                <!-- 제목 입력 필드 -->
                 <div class="form-group">
                     <label>제목</label>
                     <input type="text" id="memoTitle" placeholder="메모 제목을 입력하세요" required>
                 </div>
+                <!-- URL 입력 필드 -->
                 <div class="form-group">
                     <label>URL</label>
                     <input type="url" id="memoUrl" placeholder="https://example.com">
                 </div>
+                <!-- 본문 입력 필드 -->
                 <div class="form-group">
                     <label>본문</label>
                     <textarea id="memoBody" placeholder="메모 내용을 입력하세요" required></textarea>
                 </div>
+                <!-- 취소, 저장 버튼 -->
                 <div class="modal-buttons">
                     <button type="button" class="cancel-btn" id="cancelBtn">취소</button>
                     <button type="submit" class="save-btn">저장</button>
@@ -44,6 +59,8 @@
         </div>
     </div>
 
+    <!-- JavaScript 파일 연결 -->
     <script src="script.js"></script>
 </body>
 </html>
+
