@@ -460,6 +460,7 @@ class MemoUI {
         this.lockBtn.textContent = '🔓';
         this.modalTitle.textContent = '새 메모';
         this.memoForm.reset();                   // 폼 초기화
+        document.getElementById('memoCategory').value = '기타';  // 기본 카테고리
         this.modal.classList.add('show');        // 모달 표시
     }
 
@@ -476,6 +477,7 @@ class MemoUI {
         // 폼에 메모 내용 채우기
         document.getElementById('memoTitle').value = memo.title;
         document.getElementById('memoUrl').value = memo.url || '';
+        document.getElementById('memoCategory').value = memo.category || '기타';
         document.getElementById('memoBody').value = memo.body;
         this.modal.classList.add('show');        // 모달 표시
     }
@@ -495,6 +497,7 @@ class MemoUI {
         const title = document.getElementById('memoTitle').value.trim();
         const url = document.getElementById('memoUrl').value.trim();
         const body = document.getElementById('memoBody').value.trim();
+        const userCategory = document.getElementById('memoCategory').value;  // 사용자가 선택한 카테고리
 
         // 유효성 검사
         if (!title || !body) {
@@ -515,8 +518,15 @@ class MemoUI {
             }
         }
 
-        // 자동 카테고리 분류
-        const category = await this.manager.autoClassifyCategory(title, body);
+        // 사용자가 선택한 카테고리 또는 AI 자동 분류
+        let category = userCategory;
+        if (category === '기타') {
+            // AI가 더 정확한 카테고리를 찾으면 사용
+            const aiCategory = await this.manager.autoClassifyCategory(title, body);
+            if (aiCategory !== '기타') {
+                category = aiCategory;
+            }
+        }
 
         // 수정인지 새로 추가인지 구분
         if (this.manager.editingId) {
